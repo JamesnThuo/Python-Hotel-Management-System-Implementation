@@ -1,68 +1,68 @@
 class ServiceRequest:
-    """Base class for service requests"""
-    
     def __init__(self, request_date, room, description):
-        """Initialize a service request"""
         self._request_date = request_date
         self._room = room
         self._description = description
         self._status = "Pending"
         self._price = 0
     
-    @property
-    def request_date(self):
+    def get_request_date(self):
         return self._request_date
     
-    @property
-    def room(self):
+    def get_room(self):
         return self._room
     
-    @property
-    def description(self):
+    def get_description(self):
         return self._description
     
-    @property
-    def status(self):
+    def get_status(self):
         return self._status
     
-    @property
-    def price(self):
+    def get_price(self):
         return self._price
     
-    @status.setter
-    def status(self, new_status):
-        self._status = new_status
+    def set_request_date(self, request_date):
+        self._request_date = request_date
+    
+    def set_room(self, room):
+        self._room = room
+    
+    def set_description(self, description):
+        self._description = description
+    
+    def set_status(self, status):
+        self._status = status
+    
+    def set_price(self, price):
+        self._price = price
     
     def complete_service(self):
-        """Mark the service as completed"""
         self._status = "Completed"
     
     def __str__(self):
-        return (f"Service Request for Room {self._room.room_number}\n"
+        return (f"Service Request for Room {self._room.get_room_number()}\n"
                 f"Type: {self.__class__.__name__}\n"
                 f"Description: {self._description}\n"
                 f"Status: {self._status}\n"
                 f"Price: ${self._price:.2f}")
 
-
 class Housekeeping(ServiceRequest):
-    """Housekeeping service request"""
-    
     def __init__(self, request_date, room, service_type="Standard"):
-        """Initialize a housekeeping request"""
         description = f"{service_type} Cleaning"
         super().__init__(request_date, room, description)
         self._service_type = service_type
         self._set_price()
     
-    @property
-    def service_type(self):
+    def get_service_type(self):
         return self._service_type
     
+    def set_service_type(self, service_type):
+        self._service_type = service_type
+        self._set_price()
+    
     def _set_price(self):
-        """Set price based on service type"""
         if self._service_type == "Standard":
-            self._price = 0 
+            self._price = 0
         elif self._service_type == "Deep":
             self._price = 25.00
         elif self._service_type == "Eco":
@@ -71,52 +71,50 @@ class Housekeeping(ServiceRequest):
     def __str__(self):
         return super().__str__()
 
-
 class RoomService(ServiceRequest):
-    """Room service request"""
-    
     def __init__(self, request_date, room, items):
-        """Initialize a room service request"""
         description = "Room Service Order"
         super().__init__(request_date, room, description)
         self._items = items
         self._calculate_price()
     
-    @property
-    def items(self):
+    def get_items(self):
         return self._items
     
+    def set_items(self, items):
+        self._items = items
+        self._calculate_price()
+    
     def _calculate_price(self):
-        """Calculate price based on ordered items"""
-        self._price = len(self._items) * 12.50  
+        self._price = len(self._items) * 12.50
     
     def __str__(self):
         items_str = "\n".join(f"- {item}" for item in self._items)
         return (super().__str__() + "\n"
                 f"Items Ordered:\n{items_str}")
 
-
 class Transportation(ServiceRequest):
-    """Transportation service request"""
-    
     def __init__(self, request_date, room, vehicle_type, destination):
-        """Initialize a transportation request"""
         description = f"{vehicle_type} to {destination}"
         super().__init__(request_date, room, description)
         self._vehicle_type = vehicle_type
         self._destination = destination
         self._set_price()
     
-    @property
-    def vehicle_type(self):
+    def get_vehicle_type(self):
         return self._vehicle_type
     
-    @property
-    def destination(self):
+    def get_destination(self):
         return self._destination
     
+    def set_vehicle_type(self, vehicle_type):
+        self._vehicle_type = vehicle_type
+        self._set_price()
+    
+    def set_destination(self, destination):
+        self._destination = destination
+    
     def _set_price(self):
-        """Set price based on vehicle type"""
         if self._vehicle_type == "Sedan":
             self._price = 35.00
         elif self._vehicle_type == "SUV":
