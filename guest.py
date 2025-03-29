@@ -13,54 +13,46 @@ class Guest:
         self._loyalty_program = None
         self._registration_date = datetime.now()
     
-    # Getters
-    @property
-    def name(self):
+    # getters
+    def get_name(self):
         return self._name
     
-    @property
-    def email(self):
+    def get_email(self):
         return self._email
     
-    @property
-    def phone(self):
+    def get_phone(self):
         return self._phone
     
-    @property
-    def address(self):
+    def get_address(self):
         return self._address
     
-    @property
-    def bookings(self):
+    def get_bookings(self):
         return self._bookings
     
-    @property
-    def loyalty_program(self):
+    def get_loyalty_program(self):
         return self._loyalty_program
     
-    @property
-    def registration_date(self):
+    def get_registration_date(self):
         return self._registration_date
     
-    # Setters
-    @email.setter
-    def email(self, new_email):
-        self._email = new_email
+    # setters
+    def set_name(self, name):
+        self._name = name
     
-    @phone.setter
-    def phone(self, new_phone):
-        self._phone = new_phone
+    def set_email(self, email):
+        self._email = email
     
-    @address.setter
-    def address(self, new_address):
-        self._address = new_address
+    def set_phone(self, phone):
+        self._phone = phone
+    
+    def set_address(self, address):
+        self._address = address
     
     def add_booking(self, booking):
         """Add a booking to the guest's history"""
         self._bookings.append(booking)
     
     def enroll_in_loyalty_program(self):
-        """Enroll the guest in the loyalty program"""
         if not self._loyalty_program:
             self._loyalty_program = LoyaltyProgram()
         return self._loyalty_program
@@ -72,7 +64,6 @@ class Guest:
                 f"Member Since: {self._registration_date.strftime('%Y-%m-%d')}\n"
                 f"Loyalty Program: {'Enrolled' if self._loyalty_program else 'Not Enrolled'}")
 
-
 class LoyaltyProgram:
     """Class representing the hotel's loyalty program"""
     
@@ -81,16 +72,13 @@ class LoyaltyProgram:
         self._tier = "Basic"
         self._free_nights_earned = 0
     
-    @property
-    def points(self):
+    def get_points(self):
         return self._points
     
-    @property
-    def tier(self):
+    def get_tier(self):
         return self._tier
     
-    @property
-    def free_nights_earned(self):
+    def get_free_nights_earned(self):
         return self._free_nights_earned
     
     def add_points(self, points):
@@ -121,6 +109,16 @@ class LoyaltyProgram:
             self._free_nights_earned += 1
             return True
         return False
+    
+    def set_points(self, points):
+        self._points = points
+        self._update_tier()
+    
+    def set_tier(self, tier):
+        self._tier = tier
+    
+    def set_free_nights_earned(self, free_nights):
+        self._free_nights_earned = free_nights
     
     def __str__(self):
         return (f"Loyalty Status: {self._tier}\n"
