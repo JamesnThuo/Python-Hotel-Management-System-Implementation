@@ -12,36 +12,45 @@ class Feedback:
         self._stay_date = stay_date if stay_date else self._date
         self._response = None
     
-    @property
-    def guest(self):
+    # getters
+    def get_guest(self):
         return self._guest
     
-    @property
-    def rating(self):
+    def get_rating(self):
         return self._rating
     
-    @property
-    def comments(self):
+    def get_comments(self):
         return self._comments
     
-    @property
-    def date(self):
+    def get_date(self):
         return self._date
     
-    @property
-    def stay_date(self):
+    def get_stay_date(self):
         return self._stay_date
     
-    @property
-    def response(self):
+    def get_response(self):
         return self._response
     
+    # Setters
+    def set_guest(self, guest):
+        self._guest = guest
+    
+    def set_rating(self, rating):
+        if not 1 <= rating <= 5:
+            raise ValueError("Rating must be between 1 and 5")
+        self._rating = rating
+    
+    def set_comments(self, comments):
+        self._comments = comments
+    
+    def set_response(self, response_text):
+        self._response = response_text
+    
     def add_response(self, response_text):
-        """Add a management response to the feedback"""
         self._response = response_text
     
     def __str__(self):
-        feedback_str = (f"Feedback from {self._guest.name}\n"
+        feedback_str = (f"Feedback from {self._guest.get_name()}\n"
                        f"Stay Date: {self._stay_date}\n"
                        f"Rating: {'★' * self._rating}{'☆' * (5 - self._rating)}\n"
                        f"Comments: {self._comments}")
